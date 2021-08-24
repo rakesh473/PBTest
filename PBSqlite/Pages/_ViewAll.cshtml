@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PBSqlite.Models.Player>
+
+<div class="container">
+    <table class="table table-bordered table-sm" id="playerTable">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">BuyIns</th>
+            <th scope="col">Close</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model != null && Model.Count() != 0)
+        {
+            @foreach (var player in Model)
+            {
+                <tr>
+                    <th scope="row">@player.Id</th>
+                    <td>@player.Name</td>
+                    <td>@player.BuyIns</td>
+                    <td>@player.Close</td>
+                    <td>@player.Total</td>
+                    <td text-right>
+                        <a onclick="jQueryModalGet('?handler=CreateOrEdit&id=@player.Id', 'Edit Player')" class="btn btn-primary text-white"> Edit</a>
+                        <form method="post" asp-page="Admin" asp-route-id="@player.Id" asp-page-handler="Delete" onsubmit="return jQueryModalDelete(this)" class="d-inline">
+                            <button type="submit" class="btn btn-danger text-white"> Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,71 @@
+﻿@page
+@model PBSqlite.Pages.AdminModel
+@{
+    ViewBag.Title = "Admin";
+}
+
+<div class="container text-center">
+    <table class="table table-sm">
+        <tbody>
+        <tr>
+            <td>
+                <a onclick="jQueryModalGet('?handler=CreateOrEdit', 'Create Player')" class="btn bg-success">Create Player</a>
+            </td>
+            <td>
+                <a id="reload" class="btn bg-warning">Reload Table</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div id="viewAll" class="card-body table-responsive"></div>
+</div>
+<div class="container text-center">
+    <table class="table table-sm">
+        <tr>
+            <td>
+                <a onclick="jQueryModalGet('?handler=CreateTable', 'Create Table')" class="btn bg-primary">Create Table</a>
+            </td>
+            <td>Select Table</td>
+            <td> @Html.DropDownListFor(t => t.AllTables, new SelectList(Model.AllTables, "Id", "TableName"), "Select Table") </td>
+        </tr>
+    </table>
+    <div id="viewCustomTable" class="card-body table-responsive"></div>
+</div>
+<div class="container text-center">
+    <table class="table table-sm">
+        <tr>
+            <td>
+                <a onclick="jQueryModalGet('?handler=CreateUser', 'Create User')" class="btn bg-primary">Create User</a>
+            </td>
+            <td>Select User</td>
+            <td> @Html.DropDownListFor(u => u.AllUsers, new SelectList(Model.AllUsers, "Id", "UserName"), "Select User") </td>
+        </tr>
+    </table>
+    <div id="viewUser" class="card-body table-responsive"></div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#viewAll').load('?handler=ViewAllPartial');
+
+        });
+        $(function() {
+            $('#reload').on('click',
+                function() {
+                    $('#viewAll').load('?handler=ViewAllPartial');
+                });
+        });
+        $(function() {
+            $('#AllTables').change(function() {
+                $('#viewCustomTable').load("?handler=ViewSelectTable&text=" + $("#AllTables option:selected").text());
+            });
+        });
+        $(function() {
+            $('#AllUsers').change(function() {
+                $('#viewUser').load('?handler=ViewSelectUser&text=' + $("#AllUsers option:selected").text());
+            });
+        });
+    </script>
+}

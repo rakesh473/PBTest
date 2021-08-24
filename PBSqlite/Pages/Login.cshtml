@@ -1,0 +1,21 @@
+﻿@page
+@model PBSqlite.Pages.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<form id="create-form-1" method="post" asp-page="Login">
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">UserName</label>
+        <div class="col-sm-5">
+            <input type="text" autocomplete="off" asp-for="LoginUser.UserName" name="UserName" class="form-control">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-5">
+            <input type="password" autocomplete="off" asp-for="LoginUser.Password" name="Password" class="form-control">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

@@ -1,0 +1,61 @@
+﻿@page
+@using PBSqlite.Services
+@inject ITableDataService _playersData
+@model DashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+<div class="container">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Total BuyIns</th>
+                <th scope="col">Total Gain</th>
+                <th scope="col">Total Loss</th>
+                <th scope="col">Total Table</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@_playersData.GetTable().TotalBuyIns</td>
+                <td>@_playersData.GetTable().TotalGain</td>
+                <td>@_playersData.GetTable().TotalLoss</td>
+                <td>@_playersData.GetTable().TotalTable</td>
+                <td>@_playersData.GetTable().TableName</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">BuyIns</th>
+                <th scope="col">Close</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in _playersData.GetAllPlayer())
+            {
+                <tr>
+                    <th scope="row">@player.Id</th>
+                    <td>@player.Name</td>
+                    <td>@player.BuyIns</td>
+                    <td>@player.Close</td>
+                    <td>@player.Total</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>window.onblur = function () { window.onfocus = function () { location.reload(true) } };</script>
+}
